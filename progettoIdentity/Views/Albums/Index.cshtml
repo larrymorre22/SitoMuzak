@@ -1,0 +1,116 @@
+﻿@model IEnumerable<ProgettoComplessoID.Models.Album>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dischi</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Aggiungi</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Band)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsLive)
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Format)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Band)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsLive)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageData))
+                        {
+                            <img src="@item.ImageData" alt="Album Image" style="max-width: 100px; max-height: 100px;" />
+                        }
+                        else
+                        {
+                            <p>No image available</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Format)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nation)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <!-- Visualizzazione per gli utenti normali -->
+    @foreach (var item in Model)
+    {
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <!-- Immagine -->
+            <img src="@item.ImageData" alt="Album Image" style="width: 200px; height: 200px; margin-right: 20px;" />
+
+            <!-- Dettagli -->
+            <div>
+                <h2>@item.Title</h2>
+                <p>@item.Band</p>
+                <p>@item.Genre</p>
+                <p>@item.Format</p>
+                <p>@item.Nation</p>
+                <p>€ @item.Price</p>
+            </div>
+        </div>
+    }
+}

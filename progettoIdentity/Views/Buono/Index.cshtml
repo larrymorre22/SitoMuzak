@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProgettoComplessoID.Models.Buono>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Buoni</h1>
+
+<p>
+    <a asp-action="Create">Aggiungi</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Codice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataScadenza)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataScadenza)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
